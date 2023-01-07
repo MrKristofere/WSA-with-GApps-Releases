@@ -1,0 +1,22 @@
+name: Sync with upstream
+on:
+  schedule:
+    - cron: "30 18 * * 2"
+  workflow_dispatch:
+
+jobs:
+  merge-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Merge Upstream
+        uses: exions/merge-upstream@v1
+        with:
+          upstream: LSPosed/MagiskOnWSALocal # set the upstream repo
+          upstream-branch: main # set the upstream branch to merge from
+          branch: X # set the branch to merge to
+          token: ${{ secrets.GITHUB_TOKEN }} # set the token to push to the repo
