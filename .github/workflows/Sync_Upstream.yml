@@ -21,15 +21,9 @@ jobs:
         # optional: set the branch to checkout,
         # sync action checks out your 'target_sync_branch' anyway
         ref: main
+        ref 2: X
         fetch-depth: 0
         # REQUIRED if your upstream repo is private (see wiki)
-        persist-credentials: false
-        
-    - name: Checkout target repo
-      uses: actions/checkout@v3
-      with:
-        ref: X
-        fetch-depth: 0
         persist-credentials: false
 
     # REQUIRED step
@@ -39,21 +33,12 @@ jobs:
       uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
       with:
         target_sync_branch: main
+        target_sync_branch 2: X
         # REQUIRED 'target_repo_token' exactly like this!
         target_repo_token: ${{ secrets.GITHUB_TOKEN }}
         upstream_sync_branch: main
         upstream_sync_repo: LSPosed/MagiskOnWSALocal
-        upstream_repo_access_token: ${{ secrets.UPSTREAM_REPO_SECRET }}
-        
-    - name: Sync upstream changes
-      id: sync
-      uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
-      with:
-        target_sync_branch: X
-        target_repo_token: ${{ secrets.GITHUB_TOKEN }}
-        upstream_sync_branch: main
-        upstream_sync_repo: LSPosed/MagiskOnWSALocal
-        upstream_repo_access_token: ${{ secrets.UPSTREAM_REPO_SECRET }}        
+        upstream_repo_access_token: ${{ secrets.UPSTREAM_REPO_SECRET }}       
 
         test_mode: true
       
