@@ -40,6 +40,7 @@ jobs:
 
         # Set test_mode true to run tests instead of the true action!!
         test_mode: false
+        git_config_pull_rebase: true
       
     # Step 3: Display a sample message based on the sync output var 'has_new_commits'
     - name: New commits found
