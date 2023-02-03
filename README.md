@@ -138,6 +138,9 @@ This is the fork from which I compile releases. Official repository: https://git
 - WSA with OpenGApps integrated fails to start.
 
     OpenGApps has not yet released a version built for Android 12L and 13, only built for Android 11, which may not be compatible and thus cause crashes. Consider switching to MindTheGapps.
+- How to install KernelSU?
+
+    [Tutorial](./KernelSU.md)
 
 ## Credits
 
