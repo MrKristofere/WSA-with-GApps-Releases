@@ -1,4 +1,4 @@
-This is the fork from which I compile releases. Official repository: https://github.com/LSPosed/MagiskOnWSALocal
+This is the fork from which I compile [releases](https://github.com/MrKristofere/WSA-with-GApps-Releases/releases). Official repository: https://github.com/LSPosed/MagiskOnWSALocal
 
 # Magisk on WSA (with Google Apps)
 
