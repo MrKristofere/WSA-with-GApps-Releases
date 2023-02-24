@@ -12,7 +12,7 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
 
     | DistrOS |                                                                                                 |                   |            |           |
     |:-------:|-------------------------------------------------------------------------------------------------|-------------------|------------|-----------|
-    |  Debian | `lzip wine winetricks patchelf e2fsprogs aria2 python3 python3-pip aria2 p7zip-full attr unzip` | `setools`         | `whiptail` | `xz-util` |
+    |  Debian | `lzip wine winetricks patchelf e2fsprogs aria2 python3 python3-pip aria2 p7zip-full attr unzip` | `setools`         | `whiptail` | `xz-utils` |
     |   SuSE  | Same as above                                                                                   | `setools-console` | `dialog`   | `xz`      |
 
     The following components need to be installed using `winetricks`: `msxml6`
@@ -123,7 +123,7 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
     Choose `none` as the root solution.
 - How to install custom GApps?
 
-    [Tutorial](./Custom-GApps.md)
+    [Tutorial](Custom-GApps.md)
 - Where can I download MindTheGapps?
 
     You can download from here [MindTheGapps](https://androidfilehost.com/?w=files&flid=322935) ([mirror](http://downloads.codefi.re/jdcteam/javelinanddart/gapps))
@@ -140,7 +140,7 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
     OpenGApps has not yet released a version built for Android 12L and 13, only built for Android 11, which may not be compatible and thus cause crashes. Consider switching to MindTheGapps.
 - How to install KernelSU?
 
-    [Tutorial](./KernelSU.md)
+    [Tutorial](KernelSU.md)
 
 ## Credits
 
