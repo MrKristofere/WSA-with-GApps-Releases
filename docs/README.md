@@ -25,7 +25,6 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
 **Edited:**
 - build.prop (the device is displayed as Pixel 6 Pro) - this is done so that Google does not require device certification to enter the account.
 
----
 
 ## Credits
 
