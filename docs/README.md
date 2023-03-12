@@ -5,7 +5,7 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
  Drag the WSA installation package to `install.cmd`.
  Or do as in this instruction: https://www.nookery.ru/decided-error-0x800b0109/ and install the package as usual, without using "install.cmd"
 
- IMPORTANT! The folder where the installation package is located, as well as subfolders and the installation package itself, should not have spaces or special characters in the name. (this item is required, only if you install via "install.cmd")
+ ***IMPORTANT!** The folder where the installation package is located, as well as subfolders and the installation package itself, should not have spaces or special characters in the name. (this item is required, only if you install via "install.cmd")*
 
  #### Requirements before installation:
 - Windows version is at least Windows 11 version 22000.120.
