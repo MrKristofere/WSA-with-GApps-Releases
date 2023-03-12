@@ -7,7 +7,7 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
 
  ***IMPORTANT!** The folder where the installation package is located, as well as subfolders and the installation package itself, should not have spaces or special characters in the name. (this item is required, only if you install via "install.cmd")*
 
- #### Requirements before installation:
+## Requirements before installation:
 - Windows version is at least Windows 11 version 22000.120.
 - Enable "Developer Mode" in Windows settings.
 - Enable Virtualization in UEFI/BIOS and "Virtual Machine Platform" in Windows Components
