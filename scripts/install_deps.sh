@@ -39,12 +39,7 @@ require_su() {
 echo "Checking and ensuring dependencies"
 check_dependencies() {
     command -v whiptail >/dev/null 2>&1 || command -v dialog >/dev/null 2>&1 || NEED_INSTALL+=("whiptail")
-    command -v seinfo >/dev/null 2>&1 || NEED_INSTALL+=("setools")
     command -v lzip >/dev/null 2>&1 || NEED_INSTALL+=("lzip")
-    if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ] || [ "$(id -u)" == "0" ]; then
-        command -v wine64 >/dev/null 2>&1 || NEED_INSTALL+=("wine")
-        command -v winetricks >/dev/null 2>&1 || NEED_INSTALL+=("winetricks")
-    fi
     command -v patchelf >/dev/null 2>&1 || NEED_INSTALL+=("patchelf")
     command -v resize2fs >/dev/null 2>&1 || NEED_INSTALL+=("e2fsprogs")
     command -v pip >/dev/null 2>&1 || NEED_INSTALL+=("python3-pip")
@@ -53,6 +48,7 @@ check_dependencies() {
     command -v setfattr > /dev/null 2>&1 || NEED_INSTALL+=("attr")
     command -v xz > /dev/null 2>&1 || NEED_INSTALL+=("xz-utils")
     command -v unzip > /dev/null 2>&1 || NEED_INSTALL+=("unzip")
+    command -v qemu-img > /dev/null 2>&1 || NEED_INSTALL+=("qemu-utils")
 }
 check_dependencies
 osrel=$(sed -n '/^ID_LIKE=/s/^.*=//p' /etc/os-release);
@@ -108,6 +104,7 @@ if [ -n "${NEED_INSTALL[*]}" ]; then
                 NEED_INSTALL_FIX=${NEED_INSTALL_FIX//setools/setools-console} 2>&1
                 NEED_INSTALL_FIX=${NEED_INSTALL_FIX//whiptail/dialog} 2>&1
                 NEED_INSTALL_FIX=${NEED_INSTALL_FIX//xz-utils/xz} 2>&1
+                NEED_INSTALL_FIX=${NEED_INSTALL_FIX//qemu-utils/qemu-tools} 2>&1
             }  >> /dev/null
 
             readarray -td ' ' NEED_INSTALL <<<"$NEED_INSTALL_FIX "; unset 'NEED_INSTALL[-1]';
@@ -119,11 +116,4 @@ if [ -n "${NEED_INSTALL[*]}" ]; then
         if ! ($SUDO "$PM" "${UPDATE_OPTION[@]}" && $SUDO "$PM" "${INSTALL_OPTION[@]}" "${NEED_INSTALL[@]}") then abort; fi
     fi
 fi
-pip list --disable-pip-version-check | grep -E "^requests " >/dev/null 2>&1 || python3 -m pip install requests
-
-if [ ! -f /proc/sys/fs/binfmt_misc/WSLInterop ] || [ "$(id -u)" == "0" ] && which wine64 > /dev/null; then
-    winetricks list-installed | grep -E "^msxml6" >/dev/null 2>&1 || {
-        cp -r ../wine/.cache/* ~/.cache
-        winetricks msxml6 || abort
-    }
-fi
+python3 -m pip install -r requirements.txt -q
