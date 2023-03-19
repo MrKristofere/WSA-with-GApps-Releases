@@ -1,5 +1,22 @@
-# Automated Install script by Midonei
-$Host.UI.RawUI.WindowTitle = "Installing MagiskOnWSA..."
+# This file is part of MagiskOnWSALocal.
+#
+# MagiskOnWSALocal is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# MagiskOnWSALocal is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with MagiskOnWSALocal.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Copyright (C) 2023 LSPosed Contributors
+#
+
+$Host.UI.RawUI.WindowTitle = "Installing MagiskOnWSA...."
 function Test-Administrator {
     [OutputType([bool])]
     param()
@@ -19,7 +36,18 @@ function Get-InstalledDependencyVersion {
     }
 }
 
+Function Test-CommandExists {
+    Param ($command)
+    $oldPreference = $ErrorActionPreference
+    $ErrorActionPreference = 'stop'
+    try { if (Get-Command $command) { RETURN $true } }
+    Catch { Write-Host "$command does not exist"; RETURN $false }
+    Finally { $ErrorActionPreference = $oldPreference }
+} #end function test-CommandExists
+
 function Finish {
+    Write-Host "Optimizing VHDX size...."
+    If (Test-CommandExists Optimize-VHD) { Optimize-VHD ".\*.vhdx" -Mode Full }
     Clear-Host
     Start-Process "wsa://com.topjohnwu.magisk"
     Start-Process "wsa://com.android.vending"
@@ -49,7 +77,11 @@ If (((Test-Path -Path $FileList) -Eq $false).Count) {
 }
 
 If ((Test-Path -Path "MakePri.ps1") -Eq $true) {
-    Start-Process powershell.exe -Wait -Args "-ExecutionPolicy Bypass -File MakePri.ps1" -WorkingDirectory $PSScriptRoot
+    $ProcMakePri = Start-Process powershell.exe -PassThru -Args "-ExecutionPolicy Bypass -File MakePri.ps1" -WorkingDirectory $PSScriptRoot
+    $ProcMakePri.WaitForExit()
+    If ($ProcMakePri.ExitCode -Ne 0) {
+        Write-Warning "Failed to merge resources, WSA Seetings will always be in English`r`n"
+    }
 }
 
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d "1"
@@ -101,7 +133,8 @@ If (($null -Ne $Installed) -And (-Not ($Installed.IsDevelopmentMode))) {
     }
 }
 Clear-Host
-Write-Host "Installing MagiskOnWSA..."
+Write-Host "Installing MagiskOnWSA...."
+If (Test-CommandExists WsaClient) { Start-Process WsaClient -Wait -Args "/shutdown" }
 Stop-Process -Name "WsaClient" -ErrorAction SilentlyContinue
 Add-AppxPackage -ForceApplicationShutdown -ForceUpdateFromAnyVersion -Register .\AppxManifest.xml
 If ($?) {
