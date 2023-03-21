@@ -9,6 +9,7 @@ on:
     inputs:
       branch:
         description: branch update
+        default: main
         type: string
         required: true
 jobs:
