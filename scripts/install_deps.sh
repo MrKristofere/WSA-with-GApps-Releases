@@ -48,6 +48,7 @@ check_dependencies() {
     command -v setfattr >/dev/null 2>&1 || NEED_INSTALL+=("attr")
     command -v unzip >/dev/null 2>&1 || NEED_INSTALL+=("unzip")
     command -v qemu-img >/dev/null 2>&1 || NEED_INSTALL+=("qemu-utils")
+    command -v sudo >/dev/null 2>&1 || NEED_INSTALL+=("sudo")
 }
 check_dependencies
 osrel=$(sed -n '/^ID_LIKE=/s/^.*=//p' /etc/os-release)
@@ -101,28 +102,31 @@ check_package_manager() {
 
 check_package_manager
 require_su
-if [ -n "${NEED_INSTALL[*]}" ]; then
-    if [ -z "$PM" ]; then
-        echo "Unable to determine package manager: Unsupported distros"
-        abort
-    else
-        if [ "$PM" = "zypper" ]; then
-            NEED_INSTALL_FIX=${NEED_INSTALL[*]}
-            {
-                NEED_INSTALL_FIX=${NEED_INSTALL_FIX//setools/setools-console} 2>&1
-                NEED_INSTALL_FIX=${NEED_INSTALL_FIX//whiptail/dialog} 2>&1
-                NEED_INSTALL_FIX=${NEED_INSTALL_FIX//qemu-utils/qemu-tools} 2>&1
-            } >>/dev/null
-
-            readarray -td ' ' NEED_INSTALL <<<"$NEED_INSTALL_FIX "
-            unset 'NEED_INSTALL[-1]'
-        elif [ "$PM" = "apk" ]; then
-            NEED_INSTALL_FIX=${NEED_INSTALL[*]}
-            readarray -td ' ' NEED_INSTALL <<<"${NEED_INSTALL_FIX//p7zip-full/p7zip} "
-            unset 'NEED_INSTALL[-1]'
-        fi
-        if ! ($SUDO "$PM" "${INSTALL_OPTION[@]}" "${NEED_INSTALL[@]}"); then abort; fi
-    fi
+if [ -z "$PM" ]; then
+    echo "Unable to determine package manager: Unsupported distros"
+    abort
+else
+    if ! ($SUDO "$PM" "${UPDATE_OPTION[@]}" && $SUDO "$PM" "${UPGRADE_OPTION[@]}" ca-certificates); then abort; fi
 fi
-if ! ($SUDO "$PM" "${UPDATE_OPTION[@]}" && $SUDO "$PM" "${UPGRADE_OPTION[@]}" ca-certificates); then abort; fi
+
+if [ -n "${NEED_INSTALL[*]}" ]; then
+    if [ "$PM" = "zypper" ]; then
+        NEED_INSTALL_FIX=${NEED_INSTALL[*]}
+        {
+            NEED_INSTALL_FIX=${NEED_INSTALL_FIX//setools/setools-console} 2>&1
+            NEED_INSTALL_FIX=${NEED_INSTALL_FIX//whiptail/dialog} 2>&1
+            NEED_INSTALL_FIX=${NEED_INSTALL_FIX//qemu-utils/qemu-tools} 2>&1
+        } >>/dev/null
+
+        readarray -td ' ' NEED_INSTALL <<<"$NEED_INSTALL_FIX "
+        unset 'NEED_INSTALL[-1]'
+    elif [ "$PM" = "apk" ]; then
+        NEED_INSTALL_FIX=${NEED_INSTALL[*]}
+        readarray -td ' ' NEED_INSTALL <<<"${NEED_INSTALL_FIX//p7zip-full/p7zip} "
+        unset 'NEED_INSTALL[-1]'
+    fi
+    if ! ($SUDO "$PM" "${INSTALL_OPTION[@]}" "${NEED_INSTALL[@]}"); then abort; fi
+
+fi
+
 python3 -m pip install -r requirements.txt -q
