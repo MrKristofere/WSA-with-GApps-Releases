@@ -11,12 +11,12 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
 - Windows version is at least Windows 11 version 22000.120.
 - Enable "Developer Mode" in Windows settings.
 - Enable Virtualization in UEFI/BIOS and "Virtual Machine Platform" in Windows Features
-- Install components: `Microsoft.UI.Xaml.2.8_8.2212.15002.0`, `Microsoft.VCLibs.140.00_14.0.30704.0`, `Microsoft.VCLibs.140.00.UWPDesktop_14.0.30704.0` from the ***Install.before.WSA.zip*** archive
+- Install components: `Microsoft.UI.Xaml.2.8_8.2306.22001.0`, `Microsoft.VCLibs.140.00_14.0.32530.0`, `Microsoft.VCLibs.140.00.UWPDesktop_14.0.32530.0` from the ***Install.before.WSA.zip*** archive
 
 ## Build Features
 **Added:**
-- Root (Magisk 25.2)
-- Google Services (MindTheGApps dated August 29, 2022)
+- Root (Magisk 26.1)
+- Google Services (MindTheGApps dated March 23, 2023)
 - VpnDialogs
 
 **Removed:**
