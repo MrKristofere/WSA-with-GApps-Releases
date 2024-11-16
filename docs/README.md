@@ -11,28 +11,22 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
 - Windows version is at least Windows 11 version 22000.120.
 - Enable "Developer Mode" in Windows settings.
 - Enable Virtualization in UEFI/BIOS and "Virtual Machine Platform" in Windows Features
-- Install components: `Microsoft.UI.Xaml.2.8_8.2306.22001.0`, `Microsoft.VCLibs.140.00_14.0.32530.0`, `Microsoft.VCLibs.140.00.UWPDesktop_14.0.32530.0` from the ***Install.before.WSA.zip*** archive
+- Install components: `Microsoft.UI.Xaml.2.8_8.2310.30001.0, Microsoft.VCLibs.140.00_14.0.33519.0, Microsoft.VCLibs.140.00.UWPDesktop_14.0.33728.0` from the ***Deps.for.WSA.zip*** archive
 
 ## Build Features
 **Added:**
-- Root (Magisk 26.1)
-- Google Services (MindTheGApps dated March 23, 2023)
-- VpnDialogs
-
-**Removed:**
-- Amazon Appstore
- 
-**Edited:**
-- build.prop (the device is displayed as Pixel 6 Pro) - this is done so that Google does not require device certification to enter the account.
+- Root (Magisk 28.0)
+- Google Services [(GApps dated March 03, 2024)](https://github.com/LSPosed/WSA-Addon/releases/tag/v1)
 
 
 ## Credits
 
 - [StoreLib](https://github.com/StoreDev/StoreLib): API for downloading WSA
 - [Magisk](https://github.com/topjohnwu/Magisk): The most famous root solution on Android
-- [The Open GApps Project](https://opengapps.org): One of the most famous Google Apps packages solution
+- ~~[The Open GApps Project](https://opengapps.org): One of the most famous Google Apps packages solution~~
 - [WSA-Kernel-SU](https://github.com/LSPosed/WSA-Kernel-SU) and [kernel-assisted-superuser](https://git.zx2c4.com/kernel-assisted-superuser/): The kernel `su` for debugging Magisk Integration
-- [WSAGAScript](https://github.com/ADeltaX/WSAGAScript): The first GApps integration script for WSA
+- ~~[WSAGAScript](https://github.com/ADeltaX/WSAGAScript): The first GApps integration script for WSA~~
+- ~~[erofs-utils](https://github.com/sekaiacg/erofs-utils): Pre-build `erofs-utils` with erofsfuse enabled~~
 - [WSAPackagingTool](https://github.com/MlgmXyysd/WSAPackagingTool): Packing the assembly into a .msixbundle
 
 _The repository is provided as a utility._
