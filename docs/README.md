@@ -31,4 +31,4 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
 
 _The repository is provided as a utility._
 
-_Android is a trademark of Google LLC. Windows is a trademark of Microsoft LLC._
+_Android is a trademark of Google LLC. Windows is a trademark of Microsoft Corporation._
