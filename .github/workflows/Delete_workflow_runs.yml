@@ -1,4 +1,4 @@
-name: Upload TG
+name: Delete runs
 on:
   workflow_dispatch:
   
