@@ -7,7 +7,7 @@ permissions:
   actions: write
 
 jobs:
-  Upload_TG:
+  Delete_runs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,6 +18,5 @@ jobs:
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          name: 'Upload_TG'
           retain_days: 0
           keep_minimum_runs: 0
