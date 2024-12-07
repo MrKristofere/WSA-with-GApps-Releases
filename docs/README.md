@@ -15,7 +15,7 @@ This is the fork from which I compile [releases](https://github.com/MrKristofere
 
 ## Build Features
 **Added:**
-- Root (Magisk 28.0)
+- Root (Magisk 28.1)
 - Google Services [(GApps-13.0 dated March 03, 2024)](https://github.com/LSPosed/WSA-Addon/releases/tag/v1)
 
 
