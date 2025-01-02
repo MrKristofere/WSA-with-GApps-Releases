@@ -1,0 +1,36 @@
+name: Upload file
+on:
+  workflow_dispatch:
+    inputs:
+      upl:
+        description: 'URL file'
+        required: true
+        type: string
+      tag:
+        description: 'Tag'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: upd
+        run: |
+          sudo apt-get update
+      - name: cache apt
+        uses: awalsh128/cache-apt-pkgs-action@v1
+        with:
+          packages: aria2
+          version: 1.0
+      - name: download
+        run: |
+          aria2c -d dloa '${{ inputs.upl }}'
+      - name: Upload Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dloa/*
+          tag_name: ${{ inputs.tag }}
