@@ -3,12 +3,6 @@ name: 'Upstream Sync'
 on:
   workflow_dispatch:  # click the button on Github repo!
     inputs:
-      ref_target:
-        description: 'Ref branch'
-        type: string
-      branch_sync:
-        description: 'Branch Sync'
-        type: string
       sync_test_mode: # Adds a boolean option that appears during manual workflow run for easy test mode config
         description: 'Fork Sync Test Mode'
         type: boolean
@@ -33,7 +27,7 @@ jobs:
       with:
         # optional: set the branch to checkout,
         # sync action checks out your 'target_sync_branch' anyway
-        ref: ${{ github.event.inputs.ref_target }}
+        ref: main
         # REQUIRED if your upstream repo is private (see wiki)
         persist-credentials: false
 
@@ -43,7 +37,7 @@ jobs:
       id: sync
       uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.1
       with:
-        target_sync_branch: ${{ github.event.inputs.branch_sync }}
+        target_sync_branch: main
         # REQUIRED 'target_repo_token' exactly like this!
         target_repo_token: ${{ secrets.GITHUB_TOKEN }}
         upstream_sync_branch: main
